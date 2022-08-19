@@ -10,3 +10,9 @@ A template for first-person online multiplayer games using the <b>Mirror</b> too
 - Unity
 - Mirror
 - DGTween
+
+## Author
+
+Leonardo Brito de Lima
+
+https://www.linkedin.com/in/leonardo-brito-972098219/
