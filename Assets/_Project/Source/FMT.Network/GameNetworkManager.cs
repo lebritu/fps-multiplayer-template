@@ -19,17 +19,13 @@ namespace FMT.Network
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)
         {
             _spawnPoints = FindObjectsOfType<SpawnPoint>();
+            int randomNumber = Random.Range(0, _spawnPoints.Length - 1);
 
-            PlayerMotor player = Instantiate(_playerPrefab, _spawnPoints[0].Position, _spawnPoints[0].Rotation);
+            PlayerMotor player = Instantiate(_playerPrefab, _spawnPoints[randomNumber].Position, _spawnPoints[randomNumber].Rotation);
 
             NetworkServer.AddPlayerForConnection(conn, player.gameObject);
 
             Debug.Log("Player " + numPlayers + " Connected");
-        }
-
-        public override void OnServerChangeScene(string newSceneName)
-        {
-            _spawnPoints = FindObjectsOfType<SpawnPoint>();
         }
     }
 }

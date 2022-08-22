@@ -185,7 +185,7 @@ MonoBehaviour:
   _camera: {fileID: 640888545957687133}
   _characterController: {fileID: 640888546969896993}
   _cameraPosition: {fileID: 640888546404112459}
-  _jumpHeight: 1
+  _jumpHeight: 0.2
   _movementSpeed: 1
 --- !u!143 &640888546969896993
 CharacterController:
