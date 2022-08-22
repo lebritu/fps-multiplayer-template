@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using kcp2k;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -495,7 +497,7 @@ namespace Mirror
                 authenticator.OnClientAuthenticated.AddListener(OnClientAuthenticated);
             }
 
-            networkAddress = "localhost";
+            networkAddress = LocalIPAdress();
             NetworkServer.ActivateHostScene();
             RegisterClientMessages();
 
@@ -1370,5 +1372,23 @@ namespace Mirror
 
         /// <summary>This is called when a host is stopped.</summary>
         public virtual void OnStopHost() {}
+
+        public string LocalIPAdress()
+        {
+
+            IPHostEntry Host;
+            string LocalIP = "";
+            Host = Dns.GetHostEntry(Dns.GetHostName());
+
+            foreach (IPAddress ip in Host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    LocalIP = ip.ToString();
+                    break;
+                }
+            }
+            return LocalIP;
+        }
     }
 }
