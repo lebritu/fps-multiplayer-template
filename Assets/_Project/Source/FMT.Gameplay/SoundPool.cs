@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMT.Data;
 using System;
 using UnityEngine;
 
@@ -9,12 +10,16 @@ namespace FMT.Gameplay
     {
         private static AudioSource _musicOutput;
 
+        [SerializeField]
+        private AudioClipsLibraryData _audioClipsLibraryData;
+
         public static float Volume { get; set; }
 
+        public static AudioClipsLibraryData AudioLibrary { get; private set; }
         public static StepAudioClipGroup WoodStep { get; private set; }
         public static StepAudioClipGroup MetalStep { get; private set; }
         public static StepAudioClipGroup TileStep { get; private set; }
-        public static StepAudioClipGroup concreteStep { get; private set; }
+        public static StepAudioClipGroup ConcreteStep { get; private set; }
         public static StepAudioClipGroup GrassStep { get; private set; }
 
         private static bool IsPlaying { get; set; }
@@ -27,10 +32,20 @@ namespace FMT.Gameplay
             }
             else
             {
+                AudioLibrary = _audioClipsLibraryData;
                 IsPlaying = true;
+                Volume = 0.2f;
                 _musicOutput = GetComponent<AudioSource>();
+                SetupAudioClips();
                 DontDestroyOnLoad(gameObject);
             }
+        }
+
+        public static void PlayMusicClip(AudioClip clip)
+        {
+            _musicOutput.clip = clip;
+            _musicOutput.volume = Volume;
+            _musicOutput.Play();
         }
 
         public static AudioClip GetStepSound(MaterialEnum material)
@@ -50,24 +65,20 @@ namespace FMT.Gameplay
                     return GrassStep.GetRandomClip();
 
                 case MaterialEnum.Concrete:
-                    return concreteStep.GetRandomClip();
+                    return ConcreteStep.GetRandomClip();
 
                 default:
                     return GrassStep.GetRandomClip();
             }
         }
-    }
 
-    [Serializable]
-    public struct StepAudioClipGroup
-    {
-        public AudioClip[] AudioClips;
-
-        public AudioClip GetRandomClip()
+        private void SetupAudioClips()
         {
-            int randomNumber = UnityEngine.Random.Range(0, AudioClips.Length - 1);
-
-            return AudioClips[randomNumber];
+            WoodStep = _audioClipsLibraryData.WoodStep;
+            MetalStep = _audioClipsLibraryData.MetalStep;
+            TileStep = _audioClipsLibraryData.TileStep;
+            ConcreteStep = _audioClipsLibraryData.ConcreteStep;
+            GrassStep = _audioClipsLibraryData.GrassStep;
         }
     }
 }

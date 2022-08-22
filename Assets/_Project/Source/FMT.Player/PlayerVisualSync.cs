@@ -130,7 +130,7 @@ namespace FMT.Player
         [ClientRpc]
         private void RpcPlayStepSound()
         {
-            //_soundOutput.PlayOneShot(SoundPool.GetStepSound(_floorMaterial), SoundPool.Volume);
+            _soundOutput.PlayOneShot(SoundPool.GetStepSound(_floorMaterial), SoundPool.Volume);
         }
 
         [ClientRpc]

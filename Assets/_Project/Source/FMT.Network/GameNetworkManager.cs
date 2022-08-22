@@ -26,6 +26,8 @@ namespace FMT.Network
             NetworkServer.AddPlayerForConnection(conn, player.gameObject);
 
             Debug.Log("Player " + numPlayers + " Connected");
+
+            SoundPool.PlayMusicClip(SoundPool.AudioLibrary.Music);
         }
     }
 }
